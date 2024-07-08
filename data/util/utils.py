@@ -6,5 +6,9 @@ def load_image(image_path):
     return img
 
 def load_images(images_path):
+    images = []
     for image in images_path:
-        pass
+        img = load_image(image)
+        img.set_colorkey((0, 0, 0))
+        images.append(img)
+    return images
