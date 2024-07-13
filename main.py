@@ -1,6 +1,7 @@
 import pygame, sys
 from data.util.utils import load_image, load_images
 from data.scripts.player import Player
+from data.scripts.tilemap import Tilemap
 
 class Game:
     def __init__(self):
@@ -14,8 +15,12 @@ class Game:
         
         """'players': load_images('data/images')"""
         
+        #'data/images/'
         self.assets = {'background': load_image('Background.png'),
-                       'icon': load_image('player_idle_0.png')}
+                       'icon': load_image('player_idle_0.png'),
+                       'grass': load_image('tiles/grass/grass_0.png')}
+        
+        self.tilemap = Tilemap(self, tile_size=16)
         
         self.player = Player([50, 50])
         
@@ -43,7 +48,8 @@ class Game:
             pygame.display.set_caption(f'TechShoot | Fps: {str(int(self.clock.get_fps()))}')
             
             self.display.blit(self.assets['background'], (0, 0))
-                   
+            self.tilemap.render(self.display)
+            
             self.player.apply_gravity(self.keys)
             self.player.render(self.display)
             
